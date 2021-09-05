@@ -22,9 +22,9 @@ const NewEntry = ({ navigation }) => {
     const [amount, setAmount] = useState(entry.amount);
 
     //IF para debugar quando clicar no item listado para editar
-    if (isEdit) {
+    /*if (isEdit) {
         console.log('Entrou no NewEntry', JSON.stringify(entry));
-    }
+    }*/
 
     const isValid = () => {
         if (parseFloat(amount) !== 0) {
