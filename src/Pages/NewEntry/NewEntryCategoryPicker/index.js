@@ -6,7 +6,7 @@ import Colors from '../../../../styles/Colors';
 
 const NewEntryCategoryPicker = () => {
     const [modalVisible, setModalVisible] = useState(false);
-    //Teste mandar para area de stading
+
     return (
         <View>
             <TouchableOpacity

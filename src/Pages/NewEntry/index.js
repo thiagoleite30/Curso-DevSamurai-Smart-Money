@@ -22,7 +22,6 @@ const NewEntry = ({ navigation }) => {
     const [amount, setAmount] = useState(entry.amount);
 
     //IF para debugar quando clicar no item listado para editar
-    //Teste mandar area de stading
     if (isEdit) {
         console.log('Entrou no NewEntry', JSON.stringify(entry));
     }
