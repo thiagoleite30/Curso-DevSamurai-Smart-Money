@@ -9,7 +9,7 @@ import { getDefaultCategories } from './Categories';
 export const getRealm = async () => {
     const realm = await Realm.open({ //Inicializa o banco de dados RealmDB. O await burla a assincrocidade da função async.
         schema: [CategorySchema, EntrySchema],
-        schemaVersion: 2,
+        schemaVersion: 3,
     });
 
     //dropDB(realm);

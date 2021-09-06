@@ -13,6 +13,7 @@ import { getEntries } from '../../services/Entries';
 const EntryList = ({onEntryPress, onPressActionButton}) => {
   [entries, setEntries] = useState([]);//State que vai guardar todos os items da coleção. Inicia com um array vazio
 
+  //useEffect é um hook do react-native que será executado sempre ao final da renderização
   useEffect(() => {
     async function loadEntries() { //Precisa criar essa função loadEntries do tipo async pois o getEntries() é do tipo async
       const data = await getEntries();

@@ -6,17 +6,19 @@ import { TextInputMask } from 'react-native-masked-text';
 
 import Colors from '../../../../styles/Colors';
 
-const NewEntryInput = ({ value, onChangeValue }) => { //value será o state 'amount'
-    const [debit, setDebit] = useState((value < 0) ? -1 : 1); //Se o value for menor que 0 o debit será -1 senão o debit será 1
-    const [debitPrefix, setDebitPrefix] = useState((value < 0) ? '-' : '');
+const NewEntryInput = ({ value, onChangeDebit, onChangeValue }) => { //value será o state 'amount'
+    const [debit, setDebit] = useState((value <= 0) ? -1 : 1); //Se o value for menor que 0 o debit será -1 senão o debit será 1
+    const [debitPrefix, setDebitPrefix] = useState((value <= 0) ? '-' : '');
 
     const onChangeDebitCredit = () => {
         if (debit < 0) {
             setDebit(1);
             setDebitPrefix('');
+            onChangeDebit(false);
         } else {
             setDebit(-1);
             setDebitPrefix('-');
+            onChangeDebit(true);
         }
 
         onChangeValue(value * -1);//Chama a função onChangeValue que carrega o setAmount do NewEntry para alterar o valor de negativo para positivo ou o contrário

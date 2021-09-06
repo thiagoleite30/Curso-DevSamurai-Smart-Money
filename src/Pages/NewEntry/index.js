@@ -14,12 +14,14 @@ const NewEntry = ({ navigation }) => {
     const entry = navigation.getParam('entry', {
         id: null,//Caso o parâmetro recebido, entry neste caso, seja nulo, aqui passamos os valores que o entry receberá por default
         amount: '',//No original ele passa o 0 como int mesmo
-        description: '', //CRIADO POR MIM PODE APAGAR
         entryAt: new Date(),
+        category: {id: null, name: 'Selecione'},
     });//Método do navigation que recupera o parâmetro passado.
     const isEdit = navigation.getParam('isEdit', false);
 
+    const [debit, setDebit] = useState(entry.amount <= 0);
     const [amount, setAmount] = useState(entry.amount);
+    const [category, setCategory] = useState(entry.category);
 
     //IF para debugar quando clicar no item listado para editar
     if (isEdit) {
@@ -37,6 +39,7 @@ const NewEntry = ({ navigation }) => {
     const onSave = () => {
         const data = {
             amount: parseFloat(amount), //parseFloat ta transformando a string que vem do useState em número Float
+            category: category,
         };
         console.log('NewEntry :: save', data);
         saveEntry(data, entry);//caso o usuário não digite nenhum valor, será enviado também um array opcional o entry
@@ -59,9 +62,10 @@ const NewEntry = ({ navigation }) => {
             <View>
                 <NewEntryInput
                     value={amount}
+                    onChangeDebit={setDebit}
                     onChangeValue={setAmount}
                 />
-                <NewEntryCategoryPicker />
+                <NewEntryCategoryPicker debit={debit} category={category} onChangeCategory={setCategory}/>
                 <Button title="GPS" />
                 <Button title="Câmera" />
             </View>

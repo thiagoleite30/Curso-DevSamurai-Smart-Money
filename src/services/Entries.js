@@ -29,6 +29,7 @@ export const saveEntry = async (value, entry = {}) => { //Insert do do Realm DB 
                 description: value.description || entry.description, //CRIADO POR MIM PODE APAGAR
                 entryAt: value.entryAt || entry.entryAt,
                 isInit: false,
+                category: value.category || entry.category,
             };
             //console.log('Entries -> saveEntry :: Dentro do try / Depois que o data é montado ', data);
 
