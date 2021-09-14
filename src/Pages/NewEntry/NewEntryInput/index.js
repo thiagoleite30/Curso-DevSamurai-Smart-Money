@@ -15,12 +15,12 @@ const NewEntryInput = ({ value, onChangeDebit, onChangeValue }) => { //value ser
             setDebit(1);
             setDebitPrefix('');
             onChangeDebit(false);
-            console.log('NewEntryInput :: onChangeDebitCredit :: No Entry você clicou no sinal e agora o amout é positivo');
+            console.log('NewEntryInput :: onChangeDebitCredit :: No Entry você clicou no sinal e agora o amout é positivo.');
         } else {
             setDebit(-1);
             setDebitPrefix('-');
             onChangeDebit(true);
-            console.log('NewEntryInput :: onChangeDebitCredit :: No Entry você clicou no sinal e agora o amout é negativo');
+            console.log('NewEntryInput :: onChangeDebitCredit :: No Entry você clicou no sinal e agora o amout é negativo.');
         }
 
         onChangeValue(value * -1);//Chama a função onChangeValue que carrega o setAmount do NewEntry para alterar o valor de negativo para positivo ou o contrário

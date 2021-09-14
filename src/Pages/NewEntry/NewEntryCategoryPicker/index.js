@@ -11,7 +11,7 @@ const NewEntryCategoryPicker = ({ debit, category, onChangeCategory }) => {
     const [debitCategories, setDebitCategories] = useState([]);//State que vai guardar todos os items da coleção Categories. Inicia com um array vazio
     const [creditCategories, setCreditCategories] = useState([]);//State que vai guardar todos os items da coleção Categories. Inicia com um array vazio
 
-    console.log(`NewEntryCategoryPicker :: O amount é ${debit ? 'negativo' : 'positivo'} então vamos carregar as categorias ${debit ? 'debito' : 'credito'}`);//PODE APAGAR
+    console.log(`NewEntryCategoryPicker :: O amount é ${debit ? 'negativo' : 'positivo'} então vamos carregar as categorias ${debit ? 'débito' : 'crédito'}`);//PODE APAGAR
     //useEffect é um hook do react-native que será executado sempre ao final da renderização
     useEffect(() => {
         async function loadCategories() {
