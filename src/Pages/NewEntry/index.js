@@ -5,6 +5,7 @@ import { View, Button, StyleSheet } from 'react-native';
 import BalanceLabel from '../../components/BalanceLabel';
 import NewEntryInput from './NewEntryInput';
 import NewEntryCategoryPicker from './NewEntryCategoryPicker';
+import NewEntryDatePicker from './NewEntryDatePicker';
 
 import { saveEntry, deleteEntry } from '../../services/Entries';
 
@@ -16,13 +17,15 @@ const NewEntry = ({ navigation }) => {
         id: null,//Caso o parâmetro recebido, entry neste caso, seja nulo, aqui passamos os valores que o entry receberá por default
         amount: '',//No original ele passa o 0 como int mesmo
         entryAt: new Date(),
-        category: {id: null, name: 'Selecione'},
+        description: 'Sem categoria',
+        category: { id: null, name: 'Selecione' },
     });//Método do navigation que recupera o parâmetro passado.
     const isEdit = navigation.getParam('isEdit', false);
 
     const [debit, setDebit] = useState(entry.amount <= 0);
     const [amount, setAmount] = useState(entry.amount);
     const [category, setCategory] = useState(entry.category);
+    const [entryAt, setEntryAt] = useState(entry.entryAt);
 
     //IF para debugar quando clicar no item listado para editar
     if (isEdit) {
@@ -41,6 +44,7 @@ const NewEntry = ({ navigation }) => {
         const data = {
             amount: parseFloat(amount), //parseFloat ta transformando a string que vem do useState em número Float
             category: category,
+            entryAt: entryAt,
         };
         console.log('NewEntry :: save', data);
         saveEntry(data, entry);//caso o usuário não digite nenhum valor, será enviado também um array opcional o entry
@@ -60,15 +64,17 @@ const NewEntry = ({ navigation }) => {
         <View style={styles.container}>
             <BalanceLabel />
 
-            <View>
+            <View style={styles.formContainer}>
                 <NewEntryInput
                     value={amount}
                     onChangeDebit={setDebit}
                     onChangeValue={setAmount}
                 />
-                <NewEntryCategoryPicker debit={debit} category={category} onChangeCategory={setCategory}/>
-                <Button title="GPS" />
-                <Button title="Câmera" />
+                <NewEntryCategoryPicker debit={debit} category={category} onChangeCategory={setCategory} />
+
+                <View style={styles.formActionContainer}>
+                    <NewEntryDatePicker value={entryAt} onChange={setEntryAt} />
+                </View>
             </View>
 
             <View>
@@ -100,9 +106,14 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.background,
         padding: 10,
     },
-    input: {
-        borderColor: '#000',
-        borderWidth: 1,
+    formContainer: {
+        flex: 1,
+        paddingVertical: 20,
+    },
+    formActionContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginVertical: 10,
     },
 });
 

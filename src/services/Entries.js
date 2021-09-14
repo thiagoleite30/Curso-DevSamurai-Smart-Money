@@ -8,7 +8,7 @@ import { getUUID } from './UUID';
 export const getEntries = async () =>{ //Método de consultas no Realm DB
     const realm = await getRealm();//Objeto realm é responsável pela conexão com o BD
 
-    const entries = realm.objects('Entry');//Consulta de entradas (todos os objetos da schema entry)
+    const entries = realm.objects('Entry').sorted('entryAt', true);//Consulta de entradas (todos os objetos da schema entry) sorted para ordenar por data mais recente para mais antigo
 
     console.log('getEntries :: entries ', JSON.stringify(entries));
 
@@ -26,8 +26,8 @@ export const saveEntry = async (value, entry = {}) => { //Insert do do Realm DB 
             data = {
                 id: value.id || entry.id || getUUID(),
                 amount: value.amount || entry.amount,
-                description: value.description || entry.description, //CRIADO POR MIM PODE APAGAR
                 entryAt: value.entryAt || entry.entryAt,
+                description: value.category.name,
                 isInit: false,
                 category: value.category || entry.category,
             };
