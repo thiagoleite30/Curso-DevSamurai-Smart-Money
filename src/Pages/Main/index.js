@@ -12,9 +12,13 @@ import Colors from '../../../styles/Colors';
 
 const Main = ({ navigation }) => {
 
+  const showLog = (metod,page) => {//PODE APAGAR
+    console.log('Você esta no método ', metod,' e estou te levando para a pagina ', page);//PODE APAGAR
+  };//PODE APAGAR
+
   return (
     <View style={styles.container}>
-      <BalancePanel onNewEntryPress={() => navigation.navigate('NewEntry')} />
+      <BalancePanel onNewEntryPress={() => navigation.navigate('NewEntry',showLog('onNewEntryPress','NewEntry'))} />
       <EntrySummary onPressActionButton={() => navigation.navigate('Report')}/>
       <EntryList
         onEntryPress={(entry) => navigation.navigate('NewEntry', {

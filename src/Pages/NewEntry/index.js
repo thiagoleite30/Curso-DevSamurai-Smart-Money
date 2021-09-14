@@ -11,6 +11,7 @@ import { saveEntry, deleteEntry } from '../../services/Entries';
 import Colors from '../../../styles/Colors';
 
 const NewEntry = ({ navigation }) => {
+    console.log('NewEntry :: Bem-vindo ao NewEntry!!');//PODE APAGAR
     const entry = navigation.getParam('entry', {
         id: null,//Caso o parâmetro recebido, entry neste caso, seja nulo, aqui passamos os valores que o entry receberá por default
         amount: '',//No original ele passa o 0 como int mesmo
