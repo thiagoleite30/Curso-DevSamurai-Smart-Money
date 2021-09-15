@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         borderRadius: 150, //Deixa a area do button arredondada
         alignItems: 'center',//Duas linhas alinham o icone no centro da area do button
         justifyContent: 'center',
+        margin: 2,
     },
 });
 

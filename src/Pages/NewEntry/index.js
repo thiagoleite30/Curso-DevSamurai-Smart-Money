@@ -6,6 +6,7 @@ import BalanceLabel from '../../components/BalanceLabel';
 import NewEntryInput from './NewEntryInput';
 import NewEntryCategoryPicker from './NewEntryCategoryPicker';
 import NewEntryDatePicker from './NewEntryDatePicker';
+import NewEntryDeleteAction from './NewEntryDeleteAction';
 
 import { saveEntry, deleteEntry } from '../../services/Entries';
 
@@ -17,7 +18,6 @@ const NewEntry = ({ navigation }) => {
         id: null,//Caso o parâmetro recebido, entry neste caso, seja nulo, aqui passamos os valores que o entry receberá por default
         amount: '',//No original ele passa o 0 como int mesmo
         entryAt: new Date(),
-        description: 'Sem categoria',
         category: { id: null, name: 'Selecione' },
     });//Método do navigation que recupera o parâmetro passado.
     const isEdit = navigation.getParam('isEdit', false);
@@ -29,7 +29,7 @@ const NewEntry = ({ navigation }) => {
 
     //IF para debugar quando clicar no item listado para editar
     if (isEdit) {
-        console.log('Entrou no NewEntry', JSON.stringify(entry));
+        console.log('Entrou no NewEntry com possibilidade de Editar ou Excluir a entrada', JSON.stringify(entry.category));
     }
 
     const isValid = () => {
@@ -74,6 +74,9 @@ const NewEntry = ({ navigation }) => {
 
                 <View style={styles.formActionContainer}>
                     <NewEntryDatePicker value={entryAt} onChange={setEntryAt} />
+                    {isEdit && (
+                        <NewEntryDeleteAction onOkPress={onDelete}/>
+                    )}
                 </View>
             </View>
 
@@ -84,13 +87,6 @@ const NewEntry = ({ navigation }) => {
                         isValid() && onSave();
                     }}
                 />
-                {isEdit && (
-                    <Button
-                        title={'Excluir'}
-                        //disabled={!isEdit ? true : false} Solução substituída pelo if que abraça esse componente Button
-                        onPress={onDelete}
-                    />
-                )}
                 <Button
                     title="Cancelar"
                     onPress={onClose}
