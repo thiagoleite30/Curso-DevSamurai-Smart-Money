@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, Modal, FlatList, StyleSheet } from 'react-native';
 
-import ActionFooter, {ActionPrimaryButton, ActionSecondaryButton} from '../../../components/Core/ActionFooter';
+import ActionFooter, {ActionPrimaryButton} from '../../../components/Core/ActionFooter';
 
 import { getDebitCategories, getCreditCategories } from '../../../services/Categories';
 

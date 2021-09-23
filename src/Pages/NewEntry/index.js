@@ -94,6 +94,7 @@ const NewEntry = ({ navigation }) => {
                 />
                 <ActionSecondaryButton title="Cancelar" onPress={onClose} />
             </ActionFooter>
+
         </View>
     );
 };
