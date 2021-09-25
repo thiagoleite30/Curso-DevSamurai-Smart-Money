@@ -3,6 +3,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
+import moment from 'moment';
+
 import Svg, { Circle, Rect } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 

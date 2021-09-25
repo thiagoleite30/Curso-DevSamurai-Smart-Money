@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable prettier/prettier */
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import {FlatList} from 'react-native';
@@ -10,25 +11,25 @@ import EntryListItem from './EntryListItem';
 
 import { getEntries } from '../../services/Entries';
 
-const EntryList = ({onEntryPress, onPressActionButton}) => {
+const EntryList = ({days, onEntryPress, onPressActionButton}) => {
   [entries, setEntries] = useState([]);//State que vai guardar todos os items da coleção. Inicia com um array vazio
 
   //useEffect é um hook do react-native que será executado sempre ao final da renderização
   useEffect(() => {
     async function loadEntries() { //Precisa criar essa função loadEntries do tipo async pois o getEntries() é do tipo async
-      const data = await getEntries();
+      const data = await getEntries(days);
       setEntries(data);
     }
 
     loadEntries();
 
     console.log('EntryList :: useEffect ');
-  }, []);
+  }, [days]);//o [days] cria uma dependência que cria uma condição extra para o useEffect executar novamente, quando days mudar ele executa
 
   return (
     <Container
     title="Últimos lançamentos"
-    actionLabelText="Últimos 7 dias"
+    actionLabelText={`Últimos ${days} dias`}
     actionButtonText="Ver mais"
     onPressActionButton={onPressActionButton}>
       <FlatList

@@ -1,14 +1,29 @@
 /* eslint-disable prettier/prettier */
 import { Alert } from 'react-native';
 
+import moment from 'moment';
+
 import { getRealm } from './Realm';
 import { getUUID } from './UUID';
 
 
-export const getEntries = async () =>{ //Método de consultas no Realm DB
-    const realm = await getRealm();//Objeto realm é responsável pela conexão com o BD
+export const getEntries = async (days) => { //Método de consultas no Realm DB
 
-    const entries = realm.objects('Entry').sorted('entryAt', true);//Consulta de entradas (todos os objetos da schema entry) sorted para ordenar por data mais recente para mais antigo
+    console.log('getEntries executou ------------------- meu parceiro!');
+
+    let realm = await getRealm();//Objeto realm é responsável pela conexão com o BD
+
+    realm = realm.objects('Entry');
+
+    if (days > 0) {
+        const date = moment().subtract(days, 'days').toDate();//Utilizando a bibliotéca moment para subtrair data para nosso filtro por dias
+
+        console.log('getEntries :: days (entrou no IF) ultimos ',days,' dias');
+
+        realm = realm.filtered('entryAt >= $0', date);
+    }
+
+    const entries = realm.sorted('entryAt', true);//Consulta de entradas (todos os objetos da schema entry) sorted para ordenar por data mais recente para mais antigo
 
     console.log('getEntries :: entries ', JSON.stringify(entries));
 
