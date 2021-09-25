@@ -7,20 +7,27 @@ import { getRealm } from './Realm';
 import { getUUID } from './UUID';
 
 
-export const getEntries = async (days) => { //Método de consultas no Realm DB
-
-    console.log('getEntries executou ------------------- meu parceiro!');
+export const getEntries = async (days, category) => { //Método de consultas no Realm DB
 
     let realm = await getRealm();//Objeto realm é responsável pela conexão com o BD
 
     realm = realm.objects('Entry');
 
+    console.log('getEntries :: fora do IF days ',days);
+
     if (days > 0) {
         const date = moment().subtract(days, 'days').toDate();//Utilizando a bibliotéca moment para subtrair data para nosso filtro por dias
 
-        console.log('getEntries :: days (entrou no IF) ultimos ',days,' dias');
+        console.log('getEntries :: days ',days);
 
         realm = realm.filtered('entryAt >= $0', date);
+    }
+
+    if (category && category.id){
+
+        console.log('getEntries :: category ',JSON.stringify(category));
+
+        realm = realm.filtered('category == $0', category);
     }
 
     const entries = realm.sorted('entryAt', true);//Consulta de entradas (todos os objetos da schema entry) sorted para ordenar por data mais recente para mais antigo

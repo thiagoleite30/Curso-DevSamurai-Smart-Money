@@ -22,7 +22,6 @@ const Main = ({ navigation }) => {
       <ScrollView>
         <EntrySummary onPressActionButton={() => navigation.navigate('Report')} />
         <EntryList
-          days={7}
           onEntryPress={(entry) => navigation.navigate('NewEntry', {
             entry: entry,//Passamos assim para quando chegar no NewEntry já esteja os campos preenchidos só esperando alguma alteração.
             isEdit: true,//Caso o NewEntry seja chamado aqui o isEdit vai assumir true e irá mostrar o botão adicionar como editar e o botão excluir

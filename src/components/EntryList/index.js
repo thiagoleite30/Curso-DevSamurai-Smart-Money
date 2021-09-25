@@ -11,20 +11,22 @@ import EntryListItem from './EntryListItem';
 
 import { getEntries } from '../../services/Entries';
 
-const EntryList = ({days, onEntryPress, onPressActionButton}) => {
+const EntryList = ({days = 7, category, onEntryPress, onPressActionButton}) => {
   [entries, setEntries] = useState([]);//State que vai guardar todos os items da coleção. Inicia com um array vazio
 
+  console.log('EntryList :: days passados para useEffect ',days);
   //useEffect é um hook do react-native que será executado sempre ao final da renderização
   useEffect(() => {
     async function loadEntries() { //Precisa criar essa função loadEntries do tipo async pois o getEntries() é do tipo async
-      const data = await getEntries(days);
+      console.log('EntryList :: dentro do useEffect : days ',days);
+      const data = await getEntries(days, category);
       setEntries(data);
     }
 
     loadEntries();
 
     console.log('EntryList :: useEffect ');
-  }, [days]);//o [days] cria uma dependência que cria uma condição extra para o useEffect executar novamente, quando days mudar ele executa
+  }, [days, category]);//o [days,category] cria duas dependências que colocam condições extras para o useEffect executar novamente, quando days ou category mudar
 
   return (
     <Container

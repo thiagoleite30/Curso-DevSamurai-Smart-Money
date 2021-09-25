@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -10,33 +10,52 @@ import BalanceLabel from '../../components/BalanceLabel';
 import EntrySummary from '../../components/EntrySummary';
 import EntryList from '../../components/EntryList';
 import RelativeDaysModal from '../../components/RelativeDaysModal';
+import CategoryModal from '../../components/CategoryModal';
 
 import Colors from '../../../styles/Colors';
 
 const Report = ({ navigation }) => {
   const [relativeDaysModalVisible, setRelativeDaysModalVisible] = useState(false);
+  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [relativeDays, setRelativeDays] = useState(7);
+  const [category, setCategory] = useState({
+    id: null,
+    name: 'Todas as Categorias',
+  });
 
+  //função que vai capturar o item selecionado no modal RelativeDays
   const onRelativeDaysPress = item => {
     setRelativeDays(item);
     onRelativeDaysClosePress();
   };
 
+  //função que define se o modal RelativeDays vai ficar visível ou não
   const onRelativeDaysClosePress = () => {
     setRelativeDaysModalVisible(false);
+  };
+
+  //função que vai capturar o item selecionado no modal category
+  const onCategoryPress = item => {
+    setCategory(item);
+    onCategoryClosePress();
+  };
+
+  //função que define se o modal category vai ficar visível ou não
+  const onCategoryClosePress = () => {
+    setCategoryModalVisible(false);
   };
 
   return (
     <View style={styles.container}>
       <BalanceLabel />
 
-      <View>
+      <View style={styles.filtersContainer}>
         <TouchableOpacity
           style={styles.filterButton}
           onPress={() => {
             setRelativeDaysModalVisible(true);
           }}
-          >
+        >
           <Text style={styles.filterButtonText}>{`Últimos ${relativeDays} dias`}</Text>
           <Icon
             name="expand-more"
@@ -44,12 +63,36 @@ const Report = ({ navigation }) => {
             color={Colors.champagneDark}
           />
         </TouchableOpacity>
-        <RelativeDaysModal isVisible={relativeDaysModalVisible} onConfirm={onRelativeDaysPress} onCancel={onRelativeDaysClosePress} />
+        <RelativeDaysModal
+          isVisible={relativeDaysModalVisible}
+          onConfirm={onRelativeDaysPress}
+          onCancel={onRelativeDaysClosePress}
+        />
+
+        <TouchableOpacity
+          style={styles.filterButton}
+          onPress={() => {
+            setCategoryModalVisible(true);
+          }}
+        >
+          <Text style={styles.filterButtonText}>{category.name}</Text>
+          <Icon
+            name="expand-more"
+            size={20}
+            color={Colors.champagneDark}
+          />
+        </TouchableOpacity>
+        <CategoryModal
+          categoryType="all"
+          isVisible={categoryModalVisible}
+          onConfirm={onCategoryPress}
+          onCancel={onCategoryClosePress}
+        />
       </View>
 
       <ScrollView>
         <EntrySummary />
-        <EntryList days={relativeDays}/>
+        <EntryList days={relativeDays} category={category}/>
       </ScrollView>
 
       <ActionFooter>
@@ -68,6 +111,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
+  },
+  filtersContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 5,
   },
   filterButton: {
     flexDirection: 'row',
