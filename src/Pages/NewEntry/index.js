@@ -12,13 +12,11 @@ import NewEntryCategoryPicker from './NewEntryCategoryPicker';
 import NewEntryDatePicker from './NewEntryDatePicker';
 import NewEntryDeleteAction from './NewEntryDeleteAction';
 
-
-import { saveEntry, deleteEntry } from '../../services/Entries';
+import useEntries from '../../hooks/useEntries';
 
 import Colors from '../../../styles/Colors';
 
 const NewEntry = ({ navigation }) => {
-    console.log('NewEntry :: Bem-vindo ao NewEntry!!');//PODE APAGAR
     const entry = navigation.getParam('entry', {
         id: null,//Caso o parâmetro recebido, entry neste caso, seja nulo, aqui passamos os valores que o entry receberá por default
         amount: '',//No original ele passa o 0 como int mesmo
@@ -26,6 +24,8 @@ const NewEntry = ({ navigation }) => {
         category: { id: null, name: 'Selecione' },
     });//Método do navigation que recupera o parâmetro passado.
     const isEdit = navigation.getParam('isEdit', false);
+
+    const [, saveEntry, deleteEntry] = useEntries(); //como o entries não é utilizado nós passamos uma coleção nula [ , saveEntry, deleteEntry] junto das funções
 
     const [debit, setDebit] = useState(entry.amount <= 0);
     const [amount, setAmount] = useState(entry.amount);
