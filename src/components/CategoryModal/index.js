@@ -1,31 +1,15 @@
 /* eslint-disable prettier/prettier */
-import React, {useState,useEffect} from 'react';
+import React from 'react';
 import { View, Modal, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 import ActionFooter, { ActionPrimaryButton } from '../Core/ActionFooter';
 
-import { getDebitCategories, getCreditCategories, getAllCategories } from '../../services/Categories';
+import useCategories from '../../hooks/useCategories';
 
 import Colors from '../../../styles/Colors';
 
 const CategoryModal = ({ categoryType, isVisible, onConfirm, onCancel }) => {
-
-    const [debitCategories, setDebitCategories] = useState([]);//State que vai guardar todos os items da coleção Categories. Inicia com um array vazio
-    const [creditCategories, setCreditCategories] = useState([]);//State que vai guardar todos os items da coleção Categories. Inicia com um array vazio
-    const [allCategories, setAllCategories] = useState([]);
-
-    //useEffect é um hook do react-native que será executado sempre ao final da renderização
-    useEffect(() => {
-        async function loadCategories() {
-            setDebitCategories(await getDebitCategories());
-            setCreditCategories(await getCreditCategories());
-            setAllCategories(await getAllCategories());
-        }
-
-        loadCategories();
-
-        console.log('NewEntryCategoryPicker :: useEffect');
-    }, []);
+    const [debitCategories, creditCategories, allCategories] = useCategories();
 
     return (
         <View>

@@ -161,7 +161,7 @@ export const getCreditCategories = async () => {
         .sorted('order');
 };
 
-export const getInitCategories = async () => {
+export const getInitCategory = async () => {
     const realm = await getRealm();
 
     return realm
