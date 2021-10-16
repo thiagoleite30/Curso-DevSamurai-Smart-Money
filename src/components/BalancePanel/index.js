@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 
   },
   panel: {
-    paddingVertical: 10,//espaçamento interior
+    //paddingVertical: 10,//espaçamento interior
   },
   button: {
     backgroundColor: Colors.green,
