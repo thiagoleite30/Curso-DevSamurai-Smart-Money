@@ -38,10 +38,9 @@ const BalancePanel = ({ onNewEntryPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-
+    marginBottom: -23,
   },
   panel: {
-    //paddingVertical: 10,//espaçamento interior
   },
   button: {
     backgroundColor: Colors.green,
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.30,
     shadowRadius: 6.50,
-    elevation: 10,
+    elevation: 5,
     marginTop: -25,//espaçamento externo de cima para colocar o button entre os dois componentes
     marginRight: 10,//espaçamento externo
   },
