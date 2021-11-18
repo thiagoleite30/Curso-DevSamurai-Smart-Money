@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: -20,
     marginBottom: 3,
-  }, 
+  },
   chart: {
     height: 60,
   },
